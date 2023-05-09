@@ -1,6 +1,7 @@
-from model import *
 from config import database
 import uuid
+
+from models.User import User
 
 class UserRepo():
 

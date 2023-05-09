@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-import router
+from api.api import api_router
 
 app = FastAPI()
 # CORS middleware 설정
@@ -16,4 +16,4 @@ app.add_middleware(
 async def Home():
     return "welcome home"
 
-app.include_router(router.router)
+app.include_router(api_router)
