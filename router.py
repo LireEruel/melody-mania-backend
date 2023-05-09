@@ -19,7 +19,6 @@ async def signup(user: User):
             raise HTTPException(status_code=400,  detail="이미 등록된 이메일 입니다.")
         else :
              return Response(code=200, status="OK", message="Success").dict(exclude_none=True)
-
 @router.get("/user/")
 async def retrieve():
     _userList = await UserRepo.retrieve()
