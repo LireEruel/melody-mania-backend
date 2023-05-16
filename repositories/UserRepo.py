@@ -43,3 +43,27 @@ class UserRepo():
             break
         
         return res
+    
+    @staticmethod
+    async def findUserByEmail(targetEmail:str):
+        query = {
+            'email':targetEmail
+        }
+        targetUser = None
+        async for crt_user in database.get_collection('user').find(query):
+            targetUser = crt_user
+            break
+
+        return targetUser
+    
+    @staticmethod
+    async def setAccessToken(id , token:str):
+        query = {
+            '_id': id
+        }
+        update = {
+            "$set": {
+                "access_token": token
+            }
+        }   
+        await database.get_collection("user").update_one(query, update)
