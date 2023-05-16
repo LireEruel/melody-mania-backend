@@ -17,7 +17,7 @@ async def login(login_data:user.UserLogin):
         raise HTTPException(status_code=402, detail='가입된 메일이 아닙니다.') 
     else:
         if(user['password'] == password):
-            access_token = generate_jwt(user['_id'])
+            access_token = 'aaaaa'
             await UserRepo.setAccessToken(user['_id'], access_token)
             del user['password']
             return Response(code=200, status="OK", message="Success",data={'user_info' : user}).dict(exclude_none=True)
