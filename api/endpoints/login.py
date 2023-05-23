@@ -11,8 +11,10 @@ router = APIRouter()
 async def login(login_data:user.UserLogin):
     email = login_data.email
     password = login_data.password
+    print('/login/')
     user = await UserRepo.findUserByEmail(email)
-
+    print('find user')
+    print(user)
     if isinstance(user, type(None)):
         raise HTTPException(status_code=402, detail='가입된 메일이 아닙니다.') 
     else:
