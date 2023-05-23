@@ -15,7 +15,7 @@ app.add_middleware(
     allow_headers=['*'],  # 모든 헤더 허용
 )
 
-app.include_router(api_router)
+
 class User:
     def __init__(self, user_id: str, websocket: WebSocket):
         self.user_id = user_id
@@ -27,6 +27,8 @@ connected_users: list[User] = []
 @app.get('/')
 async def Home():
     return "welcome home"
+
+app.include_router(api_router)
 
 @app.websocket("/ws/{user_id}")
 async def websocket_endpoint(user_id: str, websocket: WebSocket):
