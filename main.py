@@ -15,6 +15,7 @@ app.add_middleware(
     allow_headers=['*'],  # 모든 헤더 허용
 )
 
+app.include_router(api_router)
 class User:
     def __init__(self, user_id: str, websocket: WebSocket):
         self.user_id = user_id
