@@ -57,6 +57,18 @@ class UserRepo():
         return targetUser
     
     @staticmethod
+    async def findUserByAccessToken(targetAccessToken:str):
+        query = {
+            'access_token':targetAccessToken
+        }
+        targetUser = None
+        async for crt_user in database.get_collection('user').find(query):
+            targetUser = crt_user
+            break
+
+        return targetUser
+    
+    @staticmethod
     async def setAccessToken(id , token:str):
         query = {
             '_id': id
