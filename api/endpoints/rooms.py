@@ -18,3 +18,13 @@ async def create_room( room_setting: room.roomCreate, Authorization: str | None 
     except Exception as e:
         print(e)
         raise HTTPException(status_code=500,  detail='새로운 방 생성에 실패하였습니다.')
+    
+@router.get("/room/")
+async def read_room():
+    try:
+        print('catch GET /room ')
+        room_list = await RoomRepo.retrieve()
+        return Response(code=200, status="OK", message="Success", data=room_list).dict(exclude_none=True)
+    except Exception as e:
+        print(e)
+        raise HTTPException(status_code=500,  detail='방 조회에 실패하였습니다.')
