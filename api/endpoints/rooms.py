@@ -28,3 +28,20 @@ async def read_room():
     except Exception as e:
         print(e)
         raise HTTPException(status_code=500,  detail='방 조회에 실패하였습니다.')
+    
+@router.post("/room/join")
+async def join_room(payload: dict, Authorization: str | None = Header(default=None)):
+    try:
+        print('catch POST /room/join')
+        room_id = payload['room_id']
+        print(room_id)
+        access_token = Authorization.replace("Bearer ", "")
+        user_info = await UserRepo.findUserByAccessToken(access_token)
+        status, updated_room = await RoomRepo.joinRoomById(room_id, user_info)
+        if status :
+            return Response(code=200, status="OK", message="Success", data=updated_room).dict(exclude_none=True)
+        else :
+            raise HTTPException(status_code=400,  detail='방 입장에 실패하였습니다.') 
+    except Exception as e:
+        print(e)
+        raise HTTPException(status_code=500,  detail='방 입장에 실패하였습니다.')
